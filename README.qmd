@@ -41,6 +41,9 @@ which reports water quality from each county each day.
 
 ```{r}
 #| warning: false
+install.packages("tidyverse")
+install.packages("terra")
+install.packages("simplermarkdown")
 
 library("tidyverse")
 library("terra")
