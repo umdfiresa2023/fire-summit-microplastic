@@ -1,21 +1,20 @@
 ---
-title: "Team Name's FIRE Summit Presentation"
-<<<<<<< HEAD
-author: "Team Members"
-=======
-author: "Sammi, Neha, Lasya, Sriya, Chayanika"
->>>>>>> fd548f17025832967e31fc760cb03b2394052205
-format: gfm
-editor: visual
+editor_options: 
+  markdown: 
+    wrap: 72
 ---
+
+# Team Microplastic's FIRE Summit Presentation
+
+Sammi, Neha, Lasya, Sriya, Chayanika
 
 ## Research Question
 
-<<<<<<< HEAD
-What are the effects of the plastic bag ban on microplastic pollution in the Chesapeake Bay?
-=======
-How does emissions from battery recycling plants impact water pollution in the Chesapeake Bay?
->>>>>>> fd548f17025832967e31fc760cb03b2394052205
+What are the effects of the plastic bag ban on microplastic pollution in
+the Chesapeake Bay?
+
+How does emissions from battery recycling plants impact water pollution
+in the Chesapeake Bay?
 
 (Optional) Insert an image if it helps motivate the research question.
 
@@ -23,17 +22,22 @@ How does emissions from battery recycling plants impact water pollution in the C
 
 **Outcome variable**
 
-<<<<<<< HEAD
-Write description, data source, and wrangling methodology. Show a map if you have made one.
+Write description, data source, and wrangling methodology. Show a map if
+you have made one.
 
-If you have loops, do not run the entire thing. Instead, run one sample loop or just display your codes without making it run by adding **#\| eval: false** at the top of the chunk.
+If you have loops, do not run the entire thing. Instead, run one sample
+loop or just display your codes without making it run by adding **#\|
+eval: false** at the top of the chunk.
 
-You can also suppress warnings by adding **#\| warning: false**.
-=======
-Our outcome variable is water quality from each county adjacent to the Chesapeake Bay. Specific water parameters that we are interested in include total nitrogen, total carbon, and total organic nitrogen.
+# You can also suppress warnings by adding **#\| warning: false**.
 
-This data is obtained from [https://datahub.chesapeakebay.net](https://datahub.chesapeakebay.net/) which reports water quality from each county each day.
->>>>>>> fd548f17025832967e31fc760cb03b2394052205
+Our outcome variable is water quality from each county adjacent to the
+Chesapeake Bay. Specific water parameters that we are interested in
+include total nitrogen, total carbon, and total organic nitrogen.
+
+This data is obtained from
+[https://datahub.chesapeakebay.net](https://datahub.chesapeakebay.net/)
+which reports water quality from each county each day.
 
 ```{r}
 #| warning: false
@@ -41,8 +45,6 @@ This data is obtained from [https://datahub.chesapeakebay.net](https://datahub.c
 library("tidyverse")
 library("terra")
 library("simplermarkdown")
-<<<<<<< HEAD
-=======
 
 df<- read.csv("WaterQualityFIPS.csv") %>%
   rename(fips=FIPS)
@@ -54,27 +56,30 @@ dfcounty<-merge(df, fips, by="fips", all.x=TRUE) %>%
   mutate(Month=month(SampleDate), Year=year(SampleDate)) %>%
   group_by(Parameter, Unit, fips, name, state, Month, Year) %>%
   summarize(MeasureValue=mean(MeasureValue))
->>>>>>> fd548f17025832967e31fc760cb03b2394052205
 ```
 
 **Treatment variable**
 
-<<<<<<< HEAD
-Write description, data source, and wrangling methodology. Show a map if you have one.
+Write description, data source, and wrangling methodology. Show a map if
+you have one.
 
 **Control variables**
 
-Write description, data source, and wrangling methodology. Show a map if you have one.
+Write description, data source, and wrangling methodology. Show a map if
+you have one.
 
 ## Preliminary Results
 
-Display a figure showing how the treatment variable impacted the outcome variable.
-=======
-Our treatment variable is an indicator of whether there is a plastic bag ban or tax in each county. This data set came from <https://www.bagtheban.com/in-your-state/>.
+# Display a figure showing how the treatment variable impacted the outcome variable.
+
+Our treatment variable is an indicator of whether there is a plastic bag
+ban or tax in each county. This data set came
+from <https://www.bagtheban.com/in-your-state/>.
 
 **Control variables**
 
-To take into account total precipitation and average storm-water runoff data we used data from NASA Earth Data. Our data came from GLDAS Noah Land Surface Model.
+To take into account total precipitation and average storm-water runoff
+data we used data from NASA Earth Data. Our data came from GLDAS Noah
+Land Surface Model.
 
 ## Preliminary Results
->>>>>>> fd548f17025832967e31fc760cb03b2394052205
