@@ -51,7 +51,9 @@ dfcounty<-merge(df, fips, by="fips", all.x=TRUE) %>%
   group_by(Parameter, Unit, fips, name, state, Month, Year) %>%
   summarize(MeasureValue=mean(MeasureValue))
 ```
-
+```{r}
+#graph code
+```
 **Treatment variable**
 
 Our treatment variable is an indicator of whether there is a plastic bag
