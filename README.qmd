@@ -16,20 +16,9 @@ the Chesapeake Bay?
 How does emissions from battery recycling plants impact water pollution
 in the Chesapeake Bay?
 
-(Optional) Insert an image if it helps motivate the research question.
-
 ## Data Wrangling
 
 **Outcome variable**
-
-Write description, data source, and wrangling methodology. Show a map if
-you have made one.
-
-If you have loops, do not run the entire thing. Instead, run one sample
-loop or just display your codes without making it run by adding **#\|
-eval: false** at the top of the chunk.
-
-# You can also suppress warnings by adding **#\| warning: false**.
 
 Our outcome variable is water quality from each county adjacent to the
 Chesapeake Bay. Specific water parameters that we are interested in
@@ -64,18 +53,6 @@ dfcounty<-merge(df, fips, by="fips", all.x=TRUE) %>%
 
 **Treatment variable**
 
-Write description, data source, and wrangling methodology. Show a map if
-you have one.
-
-**Control variables**
-
-Write description, data source, and wrangling methodology. Show a map if
-you have one.
-
-## Preliminary Results
-
-# Display a figure showing how the treatment variable impacted the outcome variable.
-
 Our treatment variable is an indicator of whether there is a plastic bag
 ban or tax in each county. This data set came
 from <https://www.bagtheban.com/in-your-state/>.
@@ -87,3 +64,6 @@ data we used data from NASA Earth Data. Our data came from GLDAS Noah
 Land Surface Model.
 
 ## Preliminary Results
+
+Display a figure showing how the treatment variable impacted the outcome
+variable.
