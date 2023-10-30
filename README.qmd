@@ -51,14 +51,33 @@ dfcounty<-merge(df, fips, by="fips", all.x=TRUE) %>%
   group_by(Parameter, Unit, fips, name, state, Month, Year) %>%
   summarize(MeasureValue=mean(MeasureValue))
 ```
+
 ```{r}
 #graph code
 ```
+
 **Treatment variable**
 
 Our treatment variable is an indicator of whether there is a plastic bag
 ban or tax in each county. This data set came
 from <https://www.bagtheban.com/in-your-state/>.
+
+```{r}
+#| warning: false
+
+library("tidyverse")
+library("terra")
+library("simplermarkdown")
+
+df2<- read.csv("PlasticBagLegislation.csv") %>%
+  rename(name=Location) %>%
+  rename(state=State) %>%
+  mutate(state=ifelse(state=="Maryland", "MD", "VA")) %>%
+  mutate(monthBan=ifelse(Ban==1, Month, "N/A")) %>%
+  mutate(yearBan=ifelse(Ban==1, Year, "N/A")) %>%
+  mutate(monthTax=ifelse(Tax==1, Month, "N/A")) %>%
+  mutate(yearTax=ifelse(Tax==1, Year, "N/A"))
+```
 
 **Control variables**
 
