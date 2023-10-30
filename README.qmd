@@ -7,7 +7,7 @@ editor: visual
 
 ## Research Question
 
-Write research question here.
+What are the effects of the plastic bag ban on microplastic pollution in the Chesapeake Bay?
 
 (Optional) Insert an image if it helps motivate the research question.
 
