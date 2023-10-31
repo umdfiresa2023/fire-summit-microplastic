@@ -33,9 +33,23 @@ Write description, data source, and wrangling methodology. Show a map if
 you have one.
 
 **Control variables**
+```{r}
+cmd<-vect("Shapefiles/tl_2020_24_county10.shp")
+cva<-vect("Shapefiles/tl_2020_51_county10.shp")
 
-Write description, data source, and wrangling methodology. Show a map if
-you have one.
+r<-rast("201001.nc4")
+rp<-project(r[[1]], crs(cmd))
+
+plot(rp)
+plot(cmd, add=TRUE)
+plot(cva, add=TRUE)
+```
+![image](https://github.com/umdfiresa2023/fire-summit-microplastic/assets/125389355/d4114d00-7e8d-4b7d-b2ef-db0c4adef010)
+
+To take into account total precipitation and average storm-water runoff
+data we used data from NASA Earth Data. Our data came from GLDAS Noah
+Land Surface Model.
+
 
 ## Preliminary Results
 
