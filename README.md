@@ -1,43 +1,26 @@
----
-format: gfm
-editor: visual
----
 
-# Team Microplastic's FIRE Summit Presentation
+# Team Microplastic’s FIRE Summit Presentation
 
 Sammi, Neha, Lasya, Sriya, Chayanika
 
 ## Research Question
 
-What are the effects of the plastic bag ban on microplastic pollution in the Chesapeake Bay?
-<<<<<<< HEAD
-
-=======
-```{r}
-knitr::include_graphics("7F259009-BD11-47D9-8DE5-60E40B50B84E.jpeg")
-```
-
->>>>>>> fd548f17025832967e31fc760cb03b2394052205
-=======
 What are the effects of the plastic bag ban on microplastic pollution in
 the Chesapeake Bay?
->>>>>>> 8c0ca2b6ffc921f309d8c2a4918a3349beec47bc
-
-How does emissions from battery recycling plants impact water pollution
-in the Chesapeake Bay?
-=======
->>>>>>> 9a136a4a8f6f3f4438a3892698c9a8f3029ad000
 
 ## Data Wrangling
 
 **Outcome variable**
 
-Our outcome variable is water quality from each county adjacent to the Chesapeake Bay. Specific water parameters that we are interested in include total nitrogen, total carbon, and total organic nitrogen.
+Our outcome variable is water quality from each county adjacent to the
+Chesapeake Bay. Specific water parameters that we are interested in
+include total nitrogen, total carbon, and total organic nitrogen.
 
-This data is obtained from [https://datahub.chesapeakebay.net](https://datahub.chesapeakebay.net/) which reports water quality from each county each day.
+This data is obtained from
+[https://datahub.chesapeakebay.net](https://datahub.chesapeakebay.net/)
+which reports water quality from each county each day.
 
-```{r}
-#| warning: false
+``` r
 install.packages("tidyverse")
 install.packages("terra")
 install.packages("simplermarkdown")
@@ -58,16 +41,15 @@ dfcounty<-merge(df, fips, by="fips", all.x=TRUE) %>%
   mutate(Month=month(SampleDate), Year=year(SampleDate)) %>%
   group_by(Parameter, Unit, fips, name, state, Month, Year) %>%
   summarize(MeasureValue=mean(MeasureValue))
-head(dfcounty)
 ```
 
 **Treatment variable**
 
-Our treatment variable is an indicator of whether there is a plastic bag ban or tax in each county. This data set came from <https://www.bagtheban.com/in-your-state/>.
+Our treatment variable is an indicator of whether there is a plastic bag
+ban or tax in each county. This data set came
+from <https://www.bagtheban.com/in-your-state/>.
 
-```{r}
-#| warning: false
-
+``` r
 library("tidyverse")
 library("terra")
 library("simplermarkdown")
@@ -84,11 +66,13 @@ df2<- read.csv("PlasticBagLegislation.csv") %>%
 
 **Control variables**
 
-To take into account total precipitation and average storm-water runoff data we used data from NASA Earth Data. Our data came from GLDAS Noah Land Surface Model.
+To take into account total precipitation and average storm-water runoff
+data we used data from NASA Earth Data. Our data came from GLDAS Noah
+Land Surface Model.
 
 ## Preliminary Results
 
-```{r}
+``` r
 cmd<-vect("Shapefiles/tl_2020_24_county10.shp")
 cva<-vect("Shapefiles/tl_2020_51_county10.shp")
 
@@ -100,7 +84,9 @@ plot(cmd, add=TRUE)
 plot(cva, add=TRUE)
 ```
 
-```{r}
+![](README_files/figure-commonmark/unnamed-chunk-3-1.png)
+
+``` r
 df3<- read.csv("PlasticBagLegislation.csv") %>%
   rename(name=Location) %>%
   rename(state=State) %>%
@@ -181,7 +167,7 @@ finaldf <- merge(df4county, all, by=c("name","state", "Month", "Year", "fips"), 
   filter(!is.na(Tair_f_tavg))
 ```
 
-```{r}
+``` r
 # Make a df with the areas with ban, data on before and after water quality(Chesapeake hub bay water)
 
 before_after <- finaldf %>%
