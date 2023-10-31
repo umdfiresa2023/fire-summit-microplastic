@@ -1,7 +1,6 @@
 ---
-editor_options: 
-  markdown: 
-    wrap: 72
+format: gfm
+editor: visual
 ---
 
 # Team Microplastic's FIRE Summit Presentation
@@ -38,7 +37,7 @@ install.packages("ggplot2")
 library("tidyverse")
 library("terra")
 library("simplermarkdown")
-library("gglopt2")
+library("ggplot2")
 
 df<- read.csv("WaterQualityFIPS.csv") %>%
   rename(fips=FIPS)
