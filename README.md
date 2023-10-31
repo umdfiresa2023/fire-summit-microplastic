@@ -13,7 +13,8 @@ Sammi, Neha, Lasya, Sriya, Chayanika
 What are the effects of the plastic bag ban on microplastic pollution in
 the Chesapeake Bay?
 
-![image](https://github.com/umdfiresa2023/fire-summit-microplastic/assets/125389355/93fb426f-820d-4a0a-b713-69933b1e923c)
+![image](https://github.com/umdfiresa2023/fire-summit-microplastic/assets/125389355/2cc03ca1-a00a-4ff2-ae45-6671e14f3f63)
+
 
 
 ## Data Wrangling
