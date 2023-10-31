@@ -1,5 +1,11 @@
-Team Name’s FIRE Summit Presentation
-================
+---
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+# Team Name's FIRE Summit Presentation
+
 Team Members
 
 ## Research Question
@@ -16,10 +22,10 @@ Write description, data source, and wrangling methodology. Show a map if
 you have made one.
 
 If you have loops, do not run the entire thing. Instead, run one sample
-loop or just display your codes without making it run by adding **\#\|
+loop or just display your codes without making it run by adding **#\|
 eval: false** at the top of the chunk.
 
-You can also suppress warnings by adding **\#\| warning: false**.
+You can also suppress warnings by adding **#\| warning: false**.
 
 ``` r
 library("tidyverse")
