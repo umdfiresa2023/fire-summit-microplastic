@@ -13,7 +13,11 @@ Sammi, Neha, Lasya, Sriya, Chayanika
 <<<<<<< HEAD
 <<<<<<< HEAD
 What are the effects of the plastic bag ban on microplastic pollution in the Chesapeake Bay?
+
 =======
+```{r}
+knitr::include_graphics("7F259009-BD11-47D9-8DE5-60E40B50B84E.jpeg")
+```
 
 >>>>>>> fd548f17025832967e31fc760cb03b2394052205
 =======
@@ -46,7 +50,7 @@ install.packages("ggplot2")
 library("tidyverse")
 library("terra")
 library("simplermarkdown")
-library("gglopt2")
+library("ggplot2")
 
 df<- read.csv("WaterQualityFIPS.csv") %>%
   rename(fips=FIPS)
@@ -58,6 +62,7 @@ dfcounty<-merge(df, fips, by="fips", all.x=TRUE) %>%
   mutate(Month=month(SampleDate), Year=year(SampleDate)) %>%
   group_by(Parameter, Unit, fips, name, state, Month, Year) %>%
   summarize(MeasureValue=mean(MeasureValue))
+head(dfcounty)
 ```
 
 ```{r}
