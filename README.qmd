@@ -11,8 +11,6 @@ Sammi, Neha, Lasya, Sriya, Chayanika
 
 What are the effects of the plastic bag ban on microplastic pollution in the Chesapeake Bay?
 
-How does emissions from battery recycling plants impact water pollution in the Chesapeake Bay?
-
 ## Data Wrangling
 
 **Outcome variable**
