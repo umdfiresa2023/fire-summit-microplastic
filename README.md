@@ -6,7 +6,25 @@ Sammi, Neha, Lasya, Sriya, Chayanika
 ## Research Question
 
 What are the effects of the plastic bag ban on microplastic pollution in
-the Chesapeake Bay?
+the Chesapeake Bay? \<\<\<\<\<\<\< HEAD
+
+=======
+
+``` r
+knitr::include_graphics("7F259009-BD11-47D9-8DE5-60E40B50B84E.jpeg")
+```
+
+![](7F259009-BD11-47D9-8DE5-60E40B50B84E.jpeg)
+
+# \>\>\>\>\>\>\> fd548f17025832967e31fc760cb03b2394052205
+
+What are the effects of the plastic bag ban on microplastic pollution in
+the Chesapeake Bay? \>\>\>\>\>\>\>
+8c0ca2b6ffc921f309d8c2a4918a3349beec47bc
+
+How does emissions from battery recycling plants impact water pollution
+in the Chesapeake Bay? ======= \>\>\>\>\>\>\>
+9a136a4a8f6f3f4438a3892698c9a8f3029ad000
 
 ## Data Wrangling
 
@@ -41,7 +59,19 @@ dfcounty<-merge(df, fips, by="fips", all.x=TRUE) %>%
   mutate(Month=month(SampleDate), Year=year(SampleDate)) %>%
   group_by(Parameter, Unit, fips, name, state, Month, Year) %>%
   summarize(MeasureValue=mean(MeasureValue))
+head(dfcounty)
 ```
+
+    # A tibble: 6 × 8
+    # Groups:   Parameter, Unit, fips, name, state, Month [1]
+      Parameter Unit   fips name                state Month  Year MeasureValue
+      <chr>     <chr> <int> <chr>               <chr> <dbl> <dbl>        <dbl>
+    1 PIC       MG/L  24003 Anne Arundel County MD        1  2012        0.03 
+    2 PIC       MG/L  24003 Anne Arundel County MD        1  2013        0.03 
+    3 PIC       MG/L  24003 Anne Arundel County MD        1  2014        0.03 
+    4 PIC       MG/L  24003 Anne Arundel County MD        1  2017        0.114
+    5 PIC       MG/L  24003 Anne Arundel County MD        1  2018        0.03 
+    6 PIC       MG/L  24003 Anne Arundel County MD        1  2020        0.03 
 
 **Treatment variable**
 
@@ -84,7 +114,7 @@ plot(cmd, add=TRUE)
 plot(cva, add=TRUE)
 ```
 
-![](README_files/figure-commonmark/unnamed-chunk-3-1.png)
+![](README_files/figure-commonmark/unnamed-chunk-4-1.png)
 
 ``` r
 df3<- read.csv("PlasticBagLegislation.csv") %>%
