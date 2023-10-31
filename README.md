@@ -80,9 +80,6 @@ df2<- read.csv("PlasticBagLegislation.csv") %>%
 To take into account total precipitation and average storm-water runoff
 data we used data from NASA Earth Data. Our data came from GLDAS Noah
 Land Surface Model.
-
-## Preliminary Results
-
 ```{r}
 cmd<-vect("Shapefiles/tl_2020_24_county10.shp")
 cva<-vect("Shapefiles/tl_2020_51_county10.shp")
@@ -94,3 +91,9 @@ plot(rp)
 plot(cmd, add=TRUE)
 plot(cva, add=TRUE)
 ```
+![image](https://github.com/umdfiresa2023/fire-summit-microplastic/assets/125389355/460000a6-defc-4a82-b374-34dee5bb72e7)
+
+
+## Preliminary Results
+
+
