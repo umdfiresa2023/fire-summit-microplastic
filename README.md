@@ -96,12 +96,6 @@ df2<- read.csv("PlasticBagLegislation.csv") %>%
 
 **Control variables**
 
-To take into account total precipitation and average storm-water runoff
-data we used data from NASA Earth Data. Our data came from GLDAS Noah
-Land Surface Model.
-
-## Preliminary Results
-
 ``` r
 cmd<-vect("Shapefiles/tl_2020_24_county10.shp")
 cva<-vect("Shapefiles/tl_2020_51_county10.shp")
@@ -115,6 +109,12 @@ plot(cva, add=TRUE)
 ```
 
 ![](README_files/figure-commonmark/unnamed-chunk-4-1.png)
+
+To take into account total precipitation and average storm-water runoff
+data we used data from NASA Earth Data. Our data came from GLDAS Noah
+Land Surface Model.
+
+## Preliminary Results
 
 ``` r
 df3<- read.csv("PlasticBagLegislation.csv") %>%
