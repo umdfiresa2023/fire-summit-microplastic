@@ -52,10 +52,6 @@ dfcounty<-merge(df, fips, by="fips", all.x=TRUE) %>%
   summarize(MeasureValue=mean(MeasureValue))
 ```
 
-```{r}
-#graph code
-```
-
 **Treatment variable**
 
 Our treatment variable is an indicator of whether there is a plastic bag
@@ -87,5 +83,14 @@ Land Surface Model.
 
 ## Preliminary Results
 
-Display a figure showing how the treatment variable impacted the outcome
-variable.
+```{r}
+cmd<-vect("Shapefiles/tl_2020_24_county10.shp")
+cva<-vect("Shapefiles/tl_2020_51_county10.shp")
+
+r<-rast("201001.nc4")
+rp<-project(r[[1]], crs(cmd))
+
+plot(rp)
+plot(cmd, add=TRUE)
+plot(cva, add=TRUE)
+```
