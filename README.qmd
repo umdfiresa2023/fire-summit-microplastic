@@ -203,3 +203,202 @@ afterAverages <- before_after %>%
 
 dfToGraph <- merge(beforeAverages, afterAverages, by="name", all.x = TRUE)
 ```
+
+```{r}
+# Get a general bar graph with all areas with a ban and MeasureValue
+library(dplyr)
+
+# Create a summary data table with the total sum of MeasureValue for each location
+location_sum <- finaldf %>%
+  group_by(name) %>%
+  summarize(TotalMeasureValue = sum(MeasureValue, na.rm = TRUE))
+```
+
+```{r}
+library(ggplot2)
+
+# Create a bar plot that displays all areas with a ban
+ggplot(location_sum, aes(x = name, y = TotalMeasureValue)) +
+  geom_bar(stat = "identity", fill = "lightblue") +
+  labs(title = "Total MeasureValue by Location",
+       y = "Total MeasureValue",
+       x = "Location") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) 
+
+# Make one without ban
+```
+```{r}
+# new data frame with locations that only have a Tax and appear on DataHub
+# Create a new data frame with entries where Tax = 1
+tax_and_data <- df3[df3$Tax == 1 & df3$DataHubPresence == 1,]
+tax_and_data
+
+```
+
+```{r}
+# Create a new data frame with matching entries based on 'name' and 'state'
+tax_data <- dfcounty %>%
+  inner_join(tax_and_data, by = c("name", "state"))
+# Remove unnecessary columns
+tax_data <- tax_data[-c(3, 6:7, 9:11)]
+```
+
+```{r}
+# Create a new data frame that stores Particulate inorganic carbon from areas with Tax 
+tax_carbon <- tax_data %>%
+  filter(Parameter == "PIC")
+```
+
+```{r}
+# Create a summary data table with the total sum of MeasureValue for each location
+tax_carbon_location_sum <- tax_carbon %>%
+  group_by(name) %>%
+  summarize(TotalMeasureValue = sum(MeasureValue, na.rm = TRUE))
+  print(tax_carbon_location_sum)
+
+```
+
+```{r}
+# Graph tax and carbon data
+library(ggplot2)
+
+ggplot(tax_carbon_location_sum, aes(x = name, y = TotalMeasureValue)) +
+  geom_bar(stat = "identity", fill = "lightblue") +
+  labs(title = "Total Particulate Inorganic Carbon by Location with Tax",
+       y = "Total Particulate Inorganic Carbon",
+       x = "Location") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) 
+```
+
+```{r}
+# Create a new data frame with entries where Tax = 0
+no_tax_data <- df3[df3$Tax == 0 & df3$DataHubPresence == 1,]
+```
+
+```{r}
+# Create a new data frame with matching entries based on 'name' and 'state'
+no_tax_data <- dfcounty %>%
+  inner_join(no_tax_data, by = c("name", "state"))
+# Remove unnecessary columns
+no_tax_data <- no_tax_data[-c(3, 6:7, 9:11)]
+```
+
+```{r}
+# Data frame with of Particulate inorganic carbon from areas without Tax 
+no_tax_carbon <- no_tax_data %>%
+  filter(Parameter == "PIC")
+```
+
+```{r}
+# Create a summary data table with the total sum of MeasureValue for each location
+no_tax_carbon_location_sum <- no_tax_carbon %>%
+  group_by(name) %>%
+  summarize(TotalMeasureValue = sum(MeasureValue, na.rm = TRUE))
+```
+
+```{r}
+# Graph no tax and carbon data
+ggplot(no_tax_carbon_location_sum, aes(x = name, y = TotalMeasureValue)) +
+  geom_bar(stat = "identity", fill = "lightgreen") +
+  labs(title = "Total Particulate Inorganic Carbon by Location without Tax",
+       y = "Total Particulate Inorganic Carbon",
+       x = "Location") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+```{r}
+# Create a new data frame that stores trinate organic nitrogen from areas with Tax
+tax_nitrogen <- tax_data %>%
+  filter(Parameter == "TON")
+```
+
+```{r}
+# Create a summary data table with the total sum of MeasureValue for each location
+tax_nitrogen_location_sum <- tax_nitrogen %>%
+  group_by(name) %>%
+  summarize(TotalMeasureValue = sum(MeasureValue, na.rm = TRUE))
+```
+
+```{r}
+# Graph tax and carbon data
+ggplot(tax_nitrogen_location_sum, aes(x = name, y = TotalMeasureValue)) +
+  geom_bar(stat = "identity", fill = "lightblue") +
+  labs(title = "Total Trinate Organic Nitrogen by Location with Tax",
+       y = "Total Trinate Organic Nitrogen",
+       x = "Location") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) 
+
+```
+```{r}
+# Data frame with of Particulate inorganic carbon from areas without Tax 
+no_tax_nitrogen <- no_tax_data %>%
+  filter(Parameter == "TON")
+```
+
+```{r}
+# Create a summary data table with the total sum of MeasureValue for each location
+no_tax_nitrogen_location_sum <- no_tax_nitrogen %>%
+  group_by(name) %>%
+  summarize(TotalMeasureValue = sum(MeasureValue, na.rm = TRUE))
+```
+
+```{r}
+# Graph tax and carbon data
+ggplot(no_tax_nitrogen_location_sum, aes(x = name, y = TotalMeasureValue)) +
+  geom_bar(stat = "identity", fill = "lightgreen") +
+  labs(title = "Total Trinate Organic Nitrogen by Location without Tax",
+       y = "Total Trinate Organic Nitrogen",
+       x = "Location") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+```{r}
+all_ban_data <- df3[df3$Ban == 1 & df3$DataHubPresence == 1,]
+all_no_ban_data <- df3[df3$Ban == 0 & df3$DataHubPresence == 1 & df3$SurroundingTheBay == 1,]
+
+# new data frame for all areas with a ban
+all_ban_data <- dfcounty %>%
+  inner_join(all_ban_data, by = c("name", "state"))
+# Remove unnecessary columns
+all_ban_data <- all_ban_data [-c(2:3, 6:7, 9:10, 12)]
+
+# new data frame for all areas without a ban
+all_no_ban_data <- dfcounty %>%
+  inner_join(all_no_ban_data, by = c("name", "state"))
+# Remove unnecessary columns
+all_no_ban_data <- all_no_ban_data [-c(2:3, 6:7, 9:10, 12)]
+
+```
+
+```{r}
+# new data frame with sum of each location
+ban_location_sum <- all_ban_data %>%
+  group_by(name) %>%
+  summarize(FinalMeasureValue = sum(MeasureValue, na.rm = TRUE))
+```
+
+```{r}
+ggplot(ban_location_sum, aes(x = name, y = FinalMeasureValue)) +
+  geom_bar(stat = "identity", fill = "lightblue") +
+  labs(title = "Total Particulate Inorganic Carbon by Location with Tax",
+       y = "Total Particulate Inorganic Carbon",
+       x = "Location") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) 
+```
+
+```{r}
+# new data frame with sum of each location
+no_ban_location_sum <- all_no_ban_data %>%
+  group_by(name) %>%
+  summarize(FinalMeasureValue2 = sum(MeasureValue, na.rm = TRUE))
+```
+
+```{r}
+ggplot(no_ban_location_sum, aes(x = name, y = FinalMeasureValue2)) +
+  geom_bar(stat = "identity", fill = "lightblue") +
+  labs(title = "Total Particulate Inorganic Carbon by Location with Tax",
+       y = "Total Particulate Inorganic Carbon",
+       x = "Location") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) 
+```
+
