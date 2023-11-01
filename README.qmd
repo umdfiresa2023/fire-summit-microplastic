@@ -310,11 +310,16 @@ ggplot(tax_nitrogen_location_sum, aes(x = name, y = TotalMeasureValue)) +
 # Data frame that stores Total Organic Nitrate(TON) from areas without Tax 
 no_tax_nitrogen <- no_tax_data %>%
   filter(Parameter == "TON")
+
+# Data frame that contains the total sum of TON for each location
+no_tax_nitrogen_location_sum <- no_tax_nitrogen %>%
+  group_by(name) %>%
+  summarize(TotalMeasureValue2 = sum(MeasureValue, na.rm = TRUE))
 ```
 
 ```{r}
 # Graph no tax and nitrogen data
-ggplot(no_tax_nitrogen_location_sum, aes(x = name, y = TotalMeasureValue)) +
+ggplot(no_tax_nitrogen_location_sum, aes(x = name, y = TotalMeasureValue2)) +
   geom_bar(stat = "identity", fill = "lightgreen") +
   labs(title = "Total Trinate Organic Nitrogen by Location without Tax",
        y = "Total Trinate Organic Nitrogen",
