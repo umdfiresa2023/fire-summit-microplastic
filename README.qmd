@@ -15,7 +15,6 @@ What are the effects of the plastic bag ban on microplastic pollution in the Che
 knitr::include_graphics("7F259009-BD11-47D9-8DE5-60E40B50B84E.jpeg")
 ```
 
-=======
 
 ## Data Wrangling
 
@@ -83,7 +82,7 @@ plot(rp)
 plot(cmd, add=TRUE)
 plot(cva, add=TRUE)
 ```
-To take into account total precipitation and average storm-water runoff data we used data from NASA Earth Data. Our data came from GLDAS Noah Land Surface Model.
+To take into account total precipitation and average storm-water runoff data we used data from NASA Earth Data. Our data came from GLDAS NOAA Land Surface Model.
 
 ## Preliminary Results
 
@@ -182,7 +181,8 @@ ggplot(year_sum_PIC, aes(x = Year, y = MeasureValue, group = interaction(name, s
   geom_line() +
   geom_point() +
   theme_minimal() +
-  labs(title = "Line Graph with Points for Each Area (Parameter = PIC)",
+  labs(title = "Line Graph with Points for Each Area 
+       (Parameter = PIC - Particulate Inorganic Carbon)",
        x = "Year",
        y = "MeasureValue")
 ```
@@ -199,7 +199,8 @@ ggplot(year_sum_TON, aes(x = Year, y = MeasureValue, group = interaction(name, s
   geom_line() +
   geom_point() +
   theme_minimal() +
-  labs(title = "Line Graph with Points for Each Area (Parameter = TON)",
+  labs(title = "Line Graph with Points for Each Area 
+       (Parameter = TON - Total Organic Nitrogen)",
        x = "Year",
        y = "MeasureValue")
 ```

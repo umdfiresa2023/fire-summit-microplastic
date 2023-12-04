@@ -14,8 +14,6 @@ knitr::include_graphics("7F259009-BD11-47D9-8DE5-60E40B50B84E.jpeg")
 
 ![](7F259009-BD11-47D9-8DE5-60E40B50B84E.jpeg)
 
-=======
-
 ## Data Wrangling
 
 **Outcome variable**
@@ -101,7 +99,7 @@ plot(cva, add=TRUE)
 ![](README_files/figure-commonmark/unnamed-chunk-4-1.png)
 
 To take into account total precipitation and average storm-water runoff
-data we used data from NASA Earth Data. Our data came from GLDAS Noah
+data we used data from NASA Earth Data. Our data came from GLDAS NOAA
 Land Surface Model.
 
 ## Preliminary Results
@@ -201,7 +199,8 @@ ggplot(year_sum_PIC, aes(x = Year, y = MeasureValue, group = interaction(name, s
   geom_line() +
   geom_point() +
   theme_minimal() +
-  labs(title = "Line Graph with Points for Each Area (Parameter = PIC)",
+  labs(title = "Line Graph with Points for Each Area 
+       (Parameter = PIC - Particulate Inorganic Carbon)",
        x = "Year",
        y = "MeasureValue")
 ```
@@ -220,7 +219,8 @@ ggplot(year_sum_TON, aes(x = Year, y = MeasureValue, group = interaction(name, s
   geom_line() +
   geom_point() +
   theme_minimal() +
-  labs(title = "Line Graph with Points for Each Area (Parameter = TON)",
+  labs(title = "Line Graph with Points for Each Area 
+       (Parameter = TON - Total Organic Nitrogen)",
        x = "Year",
        y = "MeasureValue")
 ```
