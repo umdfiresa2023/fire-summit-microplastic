@@ -10,23 +10,12 @@ Sammi, Neha, Lasya, Sriya, Chayanika
 ## Research Question
 
 What are the effects of the plastic bag ban on microplastic pollution in the Chesapeake Bay?
-<<<<<<< HEAD
 
-=======
 ```{r}
 knitr::include_graphics("7F259009-BD11-47D9-8DE5-60E40B50B84E.jpeg")
 ```
 
->>>>>>> fd548f17025832967e31fc760cb03b2394052205
 =======
-What are the effects of the plastic bag ban on microplastic pollution in
-the Chesapeake Bay?
->>>>>>> 8c0ca2b6ffc921f309d8c2a4918a3349beec47bc
-
-How does emissions from battery recycling plants impact water pollution
-in the Chesapeake Bay?
-=======
->>>>>>> 9a136a4a8f6f3f4438a3892698c9a8f3029ad000
 
 ## Data Wrangling
 
