@@ -187,27 +187,192 @@ finaldf <- merge(df4county, all, by=c("name","state", "Month", "Year", "fips"), 
   filter(!is.na(Tair_f_tavg))
 ```
 
+START OF GRAPHS
+
 ``` r
-# Make a df with the areas with ban, data on before and after water quality(Chesapeake hub bay water)
+# Filter the data frame to only include rows where Parameter = "PIC"
+dfcountyPIC <- dfcounty[dfcounty$Parameter == "PIC", ]
+# Create a summary data table with the total sum of MeasureValue for each location
+year_sum_PIC <- aggregate(MeasureValue ~ Year + name + state, data = dfcountyPIC, sum)
 
-before_after <- finaldf %>%
-  # Getting rid of counties that do not have a ban
-  filter(!is.na(monthBan) & !is.na(yearBan)) %>%
-  
-  #Creating a before column and after column
-  mutate(before = ifelse(Year < yearBan & Month < monthBan, finaldf$MeasureValue, NA)) %>%
-  mutate(after = ifelse(Year >= yearBan & Month >= monthBan, finaldf$MeasureValue, NA))
-  
 
-beforeAverages <- before_after %>%
-  filter(!is.na(before)) %>%
-  filter(Parameter == "PIC") %>%
-  mutate(beforeMean = mean(before))
-
-afterAverages <- before_after %>%
-  filter(!is.na(after)) %>%
-  filter(Parameter == "PIC") %>%
-  mutate(afterMean = mean(after))
-
-dfToGraph <- merge(beforeAverages, afterAverages, by="name", all.x = TRUE)
+# Create a line graph with points for all areas
+ggplot(year_sum_PIC, aes(x = Year, y = MeasureValue, group = interaction(name, state), color = interaction(name, state))) +
+  geom_line() +
+  geom_point() +
+  theme_minimal() +
+  labs(title = "Line Graph with Points for Each Area (Parameter = PIC)",
+       x = "Year",
+       y = "MeasureValue")
 ```
+
+![](README_files/figure-commonmark/unnamed-chunk-6-1.png)
+
+``` r
+# Filter the data frame to only include rows where Parameter = "TON"
+dfcountyTON <- dfcounty[dfcounty$Parameter == "TON", ]
+# Create a summary data table with the total sum of MeasureValue for each location
+year_sum_TON <- aggregate(MeasureValue ~ Year + name + state, data = dfcountyTON, sum)
+
+
+# Create a line graph with points for all areas
+ggplot(year_sum_TON, aes(x = Year, y = MeasureValue, group = interaction(name, state), color = interaction(name, state))) +
+  geom_line() +
+  geom_point() +
+  theme_minimal() +
+  labs(title = "Line Graph with Points for Each Area (Parameter = TON)",
+       x = "Year",
+       y = "MeasureValue")
+```
+
+![](README_files/figure-commonmark/unnamed-chunk-7-1.png)
+
+``` r
+# Data frame with locations that only have a Tax and appear on DataHub
+tax_and_data <- df3[df3$Tax == 1 & df3$DataHubPresence == 1,]
+tax_and_data
+```
+
+         Month Year Ban Tax                name state DataHubPresence
+    1  October 2021   1   1      Baltimore City    MD               1
+    3     July 2020   0   1       Howard County    MD               1
+    7  January 2012   0   1   Montgomery County    MD               1
+    9  January 2023   0   1    Albemarle County    VA               1
+    10    July 2022   0   1       Louden County    VA               1
+    13 January 2022   0   1    Arlington County    VA               1
+    14 January 2022   0   1     Alexandria City    VA               1
+    15 January 2022   0   1      Fairfax County    VA               1
+    16 January 2022   0   1 Fredericksburg City    VA               1
+       SurroundingTheBay
+    1                  1
+    3                  0
+    7                  0
+    9                  0
+    10                 0
+    13                 1
+    14                 1
+    15                 1
+    16                 0
+
+``` r
+# Merge dfcounty with locations that corresponds with those in tax_and_data
+tax_data <- dfcounty %>%
+  inner_join(tax_and_data, by = c("name", "state"))
+# Remove unnecessary columns
+tax_data <- tax_data[-c(3, 6:7, 9:11)]
+```
+
+``` r
+# Data frame that stores Particulate Inorganic Carbon(PIC) from areas with Tax 
+tax_carbon <- tax_data %>%
+  filter(Parameter == "PIC")
+
+# Data frame that contains the total sum of PIC for each location
+tax_carbon_location_sum <- tax_carbon %>%
+  group_by(name) %>%
+  summarize(TotalMeasureValue = sum(MeasureValue, na.rm = TRUE))
+  print(tax_carbon_location_sum)
+```
+
+    # A tibble: 2 × 2
+      name             TotalMeasureValue
+      <chr>                        <dbl>
+    1 Arlington County             1.09 
+    2 Fairfax County               0.700
+
+``` r
+# Graph tax and carbon data
+library(ggplot2)
+
+ggplot(tax_carbon_location_sum, aes(x = name, y = TotalMeasureValue)) +
+  geom_bar(stat = "identity", fill = "lightblue") +
+  labs(title = "Total Particulate Inorganic Carbon by Location with Tax",
+       y = "Total Particulate Inorganic Carbon",
+       x = "Location") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) 
+```
+
+![](README_files/figure-commonmark/unnamed-chunk-10-1.png)
+
+``` r
+# Data frame with areas that have no Tax and are on DataHub
+no_tax_data <- df3[df3$Tax == 0 & df3$DataHubPresence == 1,]
+
+# Merge dfcounty with locations that corresponds with those in no_tax_and_data
+no_tax_data <- dfcounty %>%
+  inner_join(no_tax_data, by = c("name", "state"))
+# Remove unnecessary columns
+no_tax_data <- no_tax_data[-c(3, 6:7, 9:11)]
+```
+
+``` r
+# Data frame that stores Particulate Inorganic Carbon(PIC) from areas without Tax 
+no_tax_carbon <- no_tax_data %>%
+  filter(Parameter == "PIC")
+# Data frame that contains the total sum of PIC for each location
+no_tax_carbon_location_sum <- no_tax_carbon %>%
+  group_by(name) %>%
+  summarize(TotalMeasureValue = sum(MeasureValue, na.rm = TRUE))
+```
+
+``` r
+# Graph no tax and carbon data
+ggplot(no_tax_carbon_location_sum, aes(x = name, y = TotalMeasureValue)) +
+  geom_bar(stat = "identity", fill = "lightgreen") +
+  labs(title = "Total Particulate Inorganic Carbon by Location without Tax",
+       y = "Total Particulate Inorganic Carbon",
+       x = "Location") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+![](README_files/figure-commonmark/unnamed-chunk-13-1.png)
+
+``` r
+# Data frame that stores Total Organic Nitrate(TON) from areas with Tax 
+tax_nitrogen <- tax_data %>%
+  filter(Parameter == "TON")
+
+# Data frame that contains the total sum of TON for each location
+tax_nitrogen_location_sum <- tax_nitrogen %>%
+  group_by(name) %>%
+  summarize(TotalMeasureValue = sum(MeasureValue, na.rm = TRUE))
+```
+
+``` r
+# Graph tax and carbon data
+ggplot(tax_nitrogen_location_sum, aes(x = name, y = TotalMeasureValue)) +
+  geom_bar(stat = "identity", fill = "lightblue") +
+  labs(title = "Total Organic Nitrogen by Location with Tax",
+       y = "Total Organic Nitrogen",
+       x = "Location") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) 
+```
+
+![](README_files/figure-commonmark/unnamed-chunk-15-1.png)
+
+``` r
+# Data frame that stores Total Organic Nitrate(TON) from areas without Tax 
+no_tax_nitrogen <- no_tax_data %>%
+  filter(Parameter == "TON")
+
+# Data frame that contains the total sum of TON for each location
+no_tax_nitrogen_location_sum <- no_tax_nitrogen %>%
+  group_by(name) %>%
+  summarize(TotalMeasureValue2 = sum(MeasureValue, na.rm = TRUE))
+```
+
+``` r
+# Graph no tax and nitrogen data
+ggplot(no_tax_nitrogen_location_sum, aes(x = name, y = TotalMeasureValue2)) +
+  geom_bar(stat = "identity", fill = "lightgreen") +
+  labs(title = "Total Trinate Organic Nitrogen by Location without Tax",
+       y = "Total Trinate Organic Nitrogen",
+       x = "Location") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+![](README_files/figure-commonmark/unnamed-chunk-17-1.png)
